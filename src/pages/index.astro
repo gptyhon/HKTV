@@ -25,7 +25,7 @@ const characters = data.namelist as { name: string; points: number[]; desc: stri
 			<!-- 角色列表 -->
 			<div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">
 				{characters.map((char, i) => (
-					<a href={`/character/${i}`}
+					<a href={`${import.meta.env.BASE_URL}character/${i}`}
 					   class="group relative rounded-lg border border-white/5 px-4 py-3 transition-all duration-200 hover:border-cyan-500/30 hover:bg-white/[0.03]"
 					   style="background: linear-gradient(135deg, #0f1525 0%, #0a0e17 100%);">
 						<div class="flex items-center gap-2 mb-1">

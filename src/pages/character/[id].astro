@@ -11,7 +11,8 @@ export function getStaticPaths() {
 }
 
 const { name, points, desc } = Astro.props;
-const imagePath = `/pic/${name}.png`;
+const base = import.meta.env.BASE_URL;
+const imagePath = `${base}pic/${name}.png`;
 const tags = desc.split(/\s+/).filter(Boolean);
 ---
 
@@ -24,7 +25,7 @@ const tags = desc.split(/\s+/).filter(Boolean);
   </head>
   <body style="min-height:100vh; background:#0e1520; margin:0; padding:40px 20px; font-family:system-ui,sans-serif;">
     <div style="max-width:820px; margin:0 auto;">
-      <a href="/" style="display:inline-flex; align-items:center; gap:6px; color:#64748b; font-size:13px; margin-bottom:16px; text-decoration:none; font-family:monospace;">
+      <a href={base} style="display:inline-flex; align-items:center; gap:6px; color:#64748b; font-size:13px; margin-bottom:16px; text-decoration:none; font-family:monospace;">
         &larr; 返回列表
       </a>
 
