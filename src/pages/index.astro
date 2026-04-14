@@ -1,0 +1,47 @@
+---
+import '../styles/global.css';
+import data from '../data/data.json';
+const characters = data.namelist as { name: string; points: number[]; desc: string }[];
+---
+
+<html lang="zh-CN">
+	<head>
+		<meta charset="utf-8" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<meta name="viewport" content="width=device-width" />
+		<title>HKTV - 货币战争角色数据</title>
+	</head>
+	<body class="min-h-screen bg-[#070b14] text-white">
+		<div class="max-w-4xl mx-auto px-6 py-12">
+			<!-- 标题 -->
+			<div class="mb-10">
+				<h1 class="text-3xl font-black tracking-wide mb-1" style="text-shadow: 0 0 20px rgba(0,229,255,0.4);">
+					HKTV <span class="text-cyan-400">STATS</span>
+				</h1>
+				<p class="text-sm text-slate-500 font-mono tracking-widest">CURRENCY WAR RADAR SYSTEM</p>
+				<div class="mt-3 h-px" style="background: linear-gradient(90deg, #00e5ff44, transparent);"></div>
+			</div>
+
+			<!-- 角色列表 -->
+			<div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">
+				{characters.map((char, i) => (
+					<a href={`/character/${i}`}
+					   class="group relative rounded-lg border border-white/5 px-4 py-3 transition-all duration-200 hover:border-cyan-500/30 hover:bg-white/[0.03]"
+					   style="background: linear-gradient(135deg, #0f1525 0%, #0a0e17 100%);">
+						<div class="flex items-center gap-2 mb-1">
+							<div class="w-0.5 h-4 rounded-full bg-cyan-500/40 group-hover:bg-cyan-400 transition-colors"></div>
+							<span class="text-sm font-bold text-white group-hover:text-cyan-300 transition-colors truncate">
+								{char.name}
+							</span>
+						</div>
+						<p class="text-[10px] text-slate-500 font-mono truncate pl-2.5">{char.desc}</p>
+						<div class="absolute top-3 right-3 text-[10px] font-mono tabular-nums"
+						     style={`color: ${char.points[5] >= 1.2 ? '#ffd700' : char.points[5] >= 1.0 ? '#00e5ff' : '#ff4081'};`}>
+							{char.points[5].toFixed(2)}
+						</div>
+					</a>
+				))}
+			</div>
+		</div>
+	</body>
+</html>

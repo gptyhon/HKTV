@@ -1,0 +1,53 @@
+---
+import '../../styles/global.css';
+import CharacterCard from '../../components/CharacterCard.astro';
+import data from '../../data/data.json';
+
+export function getStaticPaths() {
+  return data.namelist.map((char: any, index: number) => ({
+    params: { id: String(index) },
+    props: { name: char.name, points: char.points, desc: char.desc },
+  }));
+}
+
+const { name, points, desc } = Astro.props;
+const imagePath = `/pic/${name}.png`;
+const tags = desc.split(/\s+/).filter(Boolean);
+---
+
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width" />
+    <title>{name} - HKTV Stats</title>
+  </head>
+  <body style="min-height:100vh; background:#0e1520; margin:0; padding:40px 20px; font-family:system-ui,sans-serif;">
+    <div style="max-width:820px; margin:0 auto;">
+      <a href="/" style="display:inline-flex; align-items:center; gap:6px; color:#64748b; font-size:13px; margin-bottom:16px; text-decoration:none; font-family:monospace;">
+        &larr; 返回列表
+      </a>
+
+      <CharacterCard name={name} points={points} desc={desc} image={imagePath} />
+
+      <div style="background:#1a2332; border-radius:0 0 6px 6px; padding:24px 28px; border-top:1px solid #253040;">
+        <div style="margin-bottom:20px;">
+          <div style="font-size:11px; color:#475569; text-transform:uppercase; letter-spacing:0.1em; margin-bottom:10px;">特性标签</div>
+          <div style="display:flex; flex-wrap:wrap; gap:8px;">
+            {tags.map(tag => (
+              <span style="display:inline-block; padding:4px 12px; font-size:12px; color:#94a3b8; background:#253040; border-radius:3px;">{tag}</span>
+            ))}
+          </div>
+        </div>
+        <div style="margin-bottom:20px;">
+          <div style="font-size:11px; color:#475569; text-transform:uppercase; letter-spacing:0.1em; margin-bottom:10px;">推荐队伍</div>
+          <div style="color:#334155; font-size:13px; font-style:italic;">暂无数据 - 后续补充</div>
+        </div>
+        <div>
+          <div style="font-size:11px; color:#475569; text-transform:uppercase; letter-spacing:0.1em; margin-bottom:10px;">打法简述</div>
+          <div style="color:#334155; font-size:13px; font-style:italic;">暂无数据 - 后续补充</div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
